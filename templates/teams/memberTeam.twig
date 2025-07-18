@@ -1,0 +1,71 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<div class="container py-4">
+    <h4 class="mb-3">Anggota Tim: {{ team.name }}</h4>
+
+    <a href="/teams" class="btn btn-sm btn-secondary mb-3">← Kembali ke Tim</a>
+
+    <div class="card shadow-sm p-3">
+<form method="POST" action="/teams/{{ team.id }}/members/add" enctype="multipart/form-data" class="row g-3">
+    <div class="col-md-3">
+        <input type="text" name="name" class="form-control" placeholder="Nama Anggota" required>
+    </div>
+    <div class="col-md-2">
+        <input type="text" name="role" class="form-control" placeholder="Peran (role)">
+    </div>
+    <div class="col-md-2">
+        <input type="date" name="joined_at" class="form-control" placeholder="Tanggal Bergabung">
+    </div>
+    <div class="col-md-3">
+        <input type="file" name="photo" class="form-control" accept="image/*">
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-primary w-100">Tambah</button>
+    </div>
+</form>
+
+    </div>
+
+<table class="table table-bordered table-striped table-hover mt-4">
+<thead class="table-dark">
+    <tr>
+        <th>No.</th>
+        <th>Foto</th>
+        <th>Nama</th>
+        <th>Peran</th>
+        <th>Team</th>
+        <th>Tanggal Bergabung</th>
+        <th style="width: 100px;">Aksi</th>
+    </tr>
+</thead>
+<tbody>
+    {% for member in members %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>
+                {% if member.photo %}
+                    <img src="/uploads/{{ member.photo }}" width="50" height="50" class="rounded-circle" alt="Foto">
+                {% else %}
+                    <span class="text-muted">-</span>
+                {% endif %}
+            </td>
+            <td>{{ member.name }}</td>
+            <td>{{ member.role }}</td>
+            <td>{{ member.team_name }}</td>
+            <td>{{ member.joined_at }}</td>
+            <td>
+                <a href="/teams/{{ team.id }}/members/delete/{{ member.id }}" class="btn btn-sm btn-danger" onclick="return confirm('Hapus anggota ini?')">Hapus</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="6" class="text-center text-muted">Belum ada anggota dalam tim ini.</td>
+        </tr>
+    {% endfor %}
+</tbody>
+
+</table>
+
+</div>
+{% endblock %}

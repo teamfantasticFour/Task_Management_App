@@ -1,0 +1,49 @@
+{% extends 'layout.twig' %} {% block content %}
+<div class="container mt-4">
+  <div class="d-flex justify-content-between mb-3">
+    <h2>Members</h2>
+    <a href="/members/create" class="btn btn-success">+ Add Member</a>
+  </div>
+
+  <div class="row">
+    {% for member in members %}
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        {% if member.photo %}
+        <img src="/uploads/{{ member.photo }}" class="card-img-top" style="height: 200px; object-fit: cover" />
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ member.name }}</h5>
+          <p class="card-text">
+            <strong>Team:</strong> {{ member.team_name }}<br />
+            <strong>Role:</strong> {{ member.role }}<br />
+            <strong>Joined:</strong> {{ member.joined_at|date('d M Y') }}
+          </p>
+          <a href="/members/edit/{{ member.id }}" class="btn btn-warning btn-sm">Edit</a>
+          <button class="btn btn-danger btn-sm" onclick="deleteMember('{{ member.id }}')">Delete</button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  function deleteMember(id) {
+    Swal.fire({
+      title: "Delete member?",
+      text: "Data akan dihapus secara permanen!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#e3342f",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Ya, Hapus",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "/members/delete/" + id;
+      }
+    });
+  }
+</script>
+{% endblock %}

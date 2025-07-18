@@ -1,0 +1,44 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Edit Member</h2>
+    <form action="/members/update/{{ member.id }}" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label class="form-label">Team</label>
+            <select name="team_id" class="form-select" required>
+                {% for team in teams %}
+                    <option value="{{ team.id }}" {% if team.id == member.team_id %}selected{% endif %}>
+                        {{ team.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" class="form-control" value="{{ member.name }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Role</label>
+            <select name="role" class="form-select" required>
+                <option value="manager" {% if member.role == 'manager' %}selected{% endif %}>Manager</option>
+                <option value="member" {% if member.role == 'member' %}selected{% endif %}>Member</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Joined At</label>
+            <input type="date" name="joined_at" class="form-control" value="{{ member.joined_at|date('Y-m-d') }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Photo</label>
+            {% if member.photo %}
+                <img src="/uploads/{{ member.photo }}" width="100" class="mb-2"><br>
+            {% endif %}
+            <input type="file" name="photo" class="form-control">
+        </div>
+        <button class="btn btn-primary">Update</button>
+        <a href="/members" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

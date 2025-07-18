@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Fantastic Four</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Hapus favicon secara eksplisit -->
+  <link rel="icon" href="data:,">
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/style_home.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- Sticky Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-hero">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="">Fantastic Four</a>
+    <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
+      <ul class="navbar-nav me-3">
+        <li class="nav-item"><a class="nav-link" href="#hero">Beranda</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">Tentang</a></li>
+        <li class="nav-item"><a class="nav-link" href="#more">Fitur</a></li>
+        <li class="nav-item"><a class="nav-link" href="#pricing">Harga</a></li>
+        <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Kontak</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <a href="/register" class="btn btn-warning">Register</a>
+        <a href="/login" class="btn btn-outline-light">Login</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="hero" class="py-5 text-white" style="min-height: 90vh; display: flex; align-items: center; background-color: #a78bfa;">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Teks di Kiri -->
+<div class="col-md-6 text-center text-md-start">
+    <small class="text-uppercase text-warning fw-bold">Solusi Tepat untuk Produktivitas</small>
+    <h1 class="display-4 fw-bold mt-3">Kelola Tugas Tim Lebih Mudah<br>bersama <span class="text-warning">Fantastic Four</span></h1>
+    <p class="lead mt-3">Platform manajemen tugas yang dirancang untuk memudahkan koordinasi, memantau progres, dan meningkatkan kolaborasi dalam satu sistem yang efisien.</p>
+    <a href="#about" class="btn btn-light btn-lg mt-3">Pelajari Lebih Lanjut</a>
+</div>
+
+
+            <!-- Gambar di Kanan -->
+            <div class="col-md-6 text-center">
+<img src="/assets/img/foto2.png" alt="Ilustrasi Manajemen Tugas" class="img-fluid" style="max-height: 400px;">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- About Section -->
+<section id="about" class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Gambar di Kiri -->
+            <div class="col-md-6 mb-4 mb-md-0">
+<img src="/assets/img/foto3.png" alt="Ilustrasi Manajemen Tugas" class="img-fluid" style="max-height: 400px;">
+            </div>
+            <!-- Penjelasan di Kanan -->
+<div class="col-md-6" id="about">
+    <small class="text-success fw-semibold text-uppercase">Tentang Kami</small>
+    <h2 class="fw-bold mb-3">Dirancang dengan Presisi untuk Tim Anda</h2>
+    <p class="text-muted">Fantastic Four adalah platform manajemen tugas modern yang dirancang untuk mendukung produktivitas dan kolaborasi tim di berbagai bidang. Dari startup hingga perusahaan besar, kami membantu Anda mengatur pekerjaan, memantau progres, dan menyelesaikan proyek tepat waktu.</p>
+    <ul class="list-unstyled">
+        <li class="mb-3 d-flex">
+            <span class="me-2 text-primary"><i class="bi bi-check-circle-fill"></i></span>
+            <div>
+                <strong>Kolaborasi Tim Efektif</strong><br>
+                <small class="text-muted">Komunikasi dan update proyek dalam satu tempat.</small>
+            </div>
+        </li>
+        <li class="mb-3 d-flex">
+            <span class="me-2 text-primary"><i class="bi bi-check-circle-fill"></i></span>
+            <div>
+                <strong>Penjadwalan & Pengingat</strong><br>
+                <small class="text-muted">Tugas dapat diatur dengan tenggat dan pengingat otomatis.</small>
+            </div>
+        </li>
+        <li class="mb-3 d-flex">
+            <span class="me-2 text-primary"><i class="bi bi-check-circle-fill"></i></span>
+            <div>
+                <strong>Visualisasi Progres</strong><br>
+                <small class="text-muted">Pantau kinerja tim dengan grafik dan laporan real-time.</small>
+            </div>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Fitur lain -->
+<section id="more" class="py-5 bg-light">
+    <div class="container text-center">
+        <h3 class="text-primary">Fitur Lainnya</h3>
+        <div class="row g-4 mt-4">
+<div class="col-md-3">
+  <div class="feature-box">
+    <div class="icon-circle icon-purple">
+      <img src="https://cdn-icons-png.flaticon.com/512/1250/1250615.png" alt="Ikon Chat">
+    </div>
+    <h5>Komunikasi Tim</h5>
+    <p>Obrolan & komentar terintegrasi.</p>
+  </div>
+</div>
+
+<div class="col-md-3">
+  <div class="feature-box">
+    <div class="icon-circle icon-blue">
+      <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Ikon Grafik">
+    </div>
+    <h5>Analitik Progres</h5>
+    <p>Laporan & grafik interaktif.</p>
+  </div>
+</div>
+
+<div class="col-md-3">
+  <div class="feature-box">
+    <div class="icon-circle icon-orange">
+      <img src="https://cdn-icons-png.flaticon.com/512/1827/1827392.png" alt="Ikon Notifikasi">
+    </div>
+    <h5>Notifikasi Pintar</h5>
+    <p>Pengingat otomatis & cerdas.</p>
+  </div>
+</div>
+
+<div class="col-md-3">
+  <div class="feature-box">
+    <div class="icon-circle icon-green">
+      <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" alt="Ikon Keamanan">
+    </div>
+    <h5>Akses Aman</h5>
+    <p>Perlindungan data terbaik.</p>
+  </div>
+</div>
+
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Clients & Team -->
+
+<!-- Team Section -->
+<section id="team" class="py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-3">Hal Hebat dalam Bisnis Dikerjakan oleh Tim Hebat</h2>
+        <p class="text-muted mb-5">Tim kami terdiri dari anggota profesional yang berdedikasi tinggi untuk mendukung kesuksesan Anda.</p>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="bg-white p-4 rounded shadow-sm">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2922/2922506.png" alt="Manager" class="img-fluid mb-3" width="80">
+                    <h5 class="fw-semibold">👨‍💼 Dimas Bagus</h5>
+                    <p class="text-primary mb-1">Direktur</p>
+                    <small class="text-muted">Pemimpin strategis yang membawa visi dan misi perusahaan.</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="bg-white p-4 rounded shadow-sm">
+                                       <img src="https://cdn-icons-png.flaticon.com/512/921/921087.png" alt="Director" class="img-fluid mb-3" width="80">
+
+                    <h5 class="fw-semibold">🧑‍💼 Hilda Imelia</h5>
+                    <p class="text-primary mb-1">Manajer Proyek</p>
+                    <small class="text-muted">Mengelola tim dan memastikan setiap proyek berjalan lancar.</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="bg-white p-4 rounded shadow-sm">
+                                       <img src="https://cdn-icons-png.flaticon.com/512/921/921087.png" alt="Director" class="img-fluid mb-3" width="80">
+                    <h5 class="fw-semibold">👩‍🎨 Charenita Reri</h5>
+                    <p class="text-primary mb-1">Desainer UI/UX</p>
+                    <small class="text-muted">Mendesain antarmuka ramah pengguna dan menarik secara visual.</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="bg-white p-4 rounded shadow-sm">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2922/2922656.png" alt="HR" class="img-fluid mb-3" width="80">
+                    <h5 class="fw-semibold">👩‍💼 Intan Aulia</h5>
+                    <p class="text-primary mb-1">Human Resource</p>
+                    <small class="text-muted">Mengelola talenta dan memastikan budaya kerja yang positif.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Pricing Plans -->
+<section id="pricing" class="py-5 bg-light text-center">
+  <div class="container">
+    <h3 class="text-primary mb-4">Paket Harga</h3>
+    <p class="mb-5 text-muted">Pilih paket sesuai kebutuhan tim Anda. Platform kami mendukung manajemen tugas, pelacakan progres, komunikasi tim, dan pengingat otomatis untuk membantu Anda menyelesaikan proyek dengan efisien.</p>
+
+    <div class="row g-4">
+      <!-- Paket Dasar -->
+      <div class="col-md-4">
+        <div class="pricing-card p-4 bg-white rounded shadow-sm h-100 border">
+          <h5 class="text-primary fw-bold mb-2">Dasar</h5>
+          <p class="text-muted mb-3">Rp0 / bulan</p>
+          <ul class="list-unstyled text-start small mb-4">
+            <li>✅ Hingga 5 pengguna</li>
+            <li>✅ Dasbor tugas sederhana</li>
+            <li>✅ Dukungan melalui email</li>
+            <li>✅ Notifikasi harian otomatis</li>
+          </ul>
+          <a href="/register" class="btn btn-outline-primary w-100">Mulai Sekarang</a>
+        </div>
+      </div>
+
+      <!-- Paket Pro -->
+      <div class="col-md-4">
+        <div class="pricing-card p-4 bg-white rounded shadow-sm h-100 border border-2 border-primary position-relative">
+          <span class="badge bg-primary position-absolute top-0 start-50 translate-middle mt-0 rounded-pill px-3 py-1">Paling Populer</span>
+          <h5 class="text-primary fw-bold mb-2 mt-4">Pro</h5>
+          <p class="text-muted mb-3">Rp150.000 / bulan</p>
+          <ul class="list-unstyled text-start small mb-4">
+            <li>✅ Hingga 25 pengguna</li>
+            <li>✅ Fitur pelacakan progres lanjutan</li>
+            <li>✅ Komunikasi dan komentar tim</li>
+            <li>✅ Integrasi Google Calendar</li>
+            <li>✅ Dukungan prioritas</li>
+          </ul>
+          <a href="/register" class="btn btn-primary w-100">Mulai Sekarang</a>
+        </div>
+      </div>
+
+      <!-- Paket Perusahaan -->
+      <div class="col-md-4">
+        <div class="pricing-card p-4 bg-white rounded shadow-sm h-100 border">
+          <h5 class="text-primary fw-bold mb-2">Perusahaan</h5>
+          <p class="text-muted mb-3">Hubungi untuk Harga</p>
+          <ul class="list-unstyled text-start small mb-4">
+            <li>✅ Pengguna tidak terbatas</li>
+            <li>✅ Integrasi sistem internal</li>
+            <li>✅ Manajer akun pribadi</li>
+            <li>✅ Pelatihan onboarding tim</li>
+            <li>✅ Dukungan 24/7</li>
+          </ul>
+          <a href="/register" class="btn btn-outline-primary w-100">Hubungi Kami</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FAQ -->
+<section id="faq" class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h3 class="text-primary fw-bold">Pertanyaan yang Sering Diajukan</h3>
+      <p class="text-muted">Masih ragu? Temukan jawaban dari pertanyaan umum pengguna lain. Kami hadir untuk memastikan pengalamanmu mulus dan maksimal!</p>
+    </div>
+
+    <div class="accordion accordion-flush shadow-sm" id="faqAccordion">
+      <!-- FAQ 1 -->
+      <div class="accordion-item mb-3 border rounded">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#q1">
+            <i class="bi bi-clipboard-plus me-2 text-primary"></i> Bagaimana cara membuat tugas baru?
+          </button>
+        </h2>
+        <div id="q1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body text-muted">
+            Cukup klik tombol <strong>"Tugas Baru"</strong> di dashboard, masukkan detail tugas, tentukan tenggat waktu dan assignee — lalu klik simpan!
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="accordion-item mb-3 border rounded">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#q2">
+            <i class="bi bi-graph-up-arrow me-2 text-primary"></i> Apakah saya bisa melacak progres secara real-time?
+          </button>
+        </h2>
+        <div id="q2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body text-muted">
+            Ya! Anda dapat melihat progres setiap tugas secara visual melalui diagram dan status terkini di dashboard tim Anda.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="accordion-item mb-3 border rounded">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#q3">
+            <i class="bi bi-phone me-2 text-primary"></i> Apakah tersedia aplikasi mobile?
+          </button>
+        </h2>
+        <div id="q3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body text-muted">
+            Tentu! Fantastic Four tersedia di Android dan iOS. Dengan aplikasi mobile, tugas bisa dipantau dan diperbarui di mana saja, kapan saja.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="accordion-item mb-3 border rounded">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#q4">
+            <i class="bi bi-shield-lock me-2 text-primary"></i> Apakah data saya aman?
+          </button>
+        </h2>
+        <div id="q4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body text-muted">
+            Kami menggunakan enkripsi tingkat tinggi dan protokol keamanan mutakhir untuk memastikan seluruh informasi dan aktivitas Anda tetap aman.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 5 -->
+      <div class="accordion-item mb-3 border rounded">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#q5">
+            <i class="bi bi-people me-2 text-primary"></i> Apakah bisa digunakan untuk kerja tim jarak jauh?
+          </button>
+        </h2>
+        <div id="q5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body text-muted">
+            Sangat bisa! Fantastic Four dirancang untuk mendukung kerja kolaboratif, terlepas dari lokasi anggota tim. Komunikasi dan update berlangsung real-time.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Contact -->
+<!-- Alert Flash Message -->
+{% if session.success_message %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session.success_message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endif %}
+
+<!-- Contact Section -->
+<section id="contact" class="py-5 bg-white">
+  <div class="container">
+    <h3 class="text-center text-primary mb-5 fw-bold">Hubungi Kami</h3>
+    <div class="row align-items-center g-5">
+
+      <!-- Map -->
+      <div class="col-md-6">
+        <div class="rounded border border-primary shadow-sm overflow-hidden">
+<iframe
+  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15817.776518447203!2d110.4086!3d-7.6140!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a58476f3ef7eb%3A0x18132f0fd8ec258f!2s69PV%2BPR%20Condongcatur%2C%20Kabupaten%20Sleman%2C%20Daerah%20Istimewa%20Yogyakarta!5e0!3m2!1sid!2sid!4v1721041019950!5m2!1sid!2sid"
+  width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="col-md-6">
+        <form action="/contact/submit" method="POST" class="bg-light p-4 rounded shadow-sm">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Nama Lengkap</label>
+            <input type="text" name="nama" class="form-control" placeholder="Nama lengkap Anda" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Email</label>
+            <input type="email" name="email" class="form-control" placeholder="email@contoh.com" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Pesan</label>
+            <textarea name="pesan" rows="4" class="form-control" placeholder="Tulis pesan Anda..." required></textarea>
+          </div>
+          <div class="text-end">
+            <button type="submit" class="btn btn-primary px-4">Kirim Pesan</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer class="bg-dark text-white pt-5 pb-4" style="font-family: 'Poppins', sans-serif;">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Brand Info -->
+      <div class="col-md-4">
+        <h5 class="mb-3 d-flex align-items-center">
+          <img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo-shadow.png" alt="Logo" width="30" class="me-2"> 
+          Fantastic Four
+        </h5>
+        <p>Platform manajemen tugas modern yang dirancang untuk meningkatkan kolaborasi, produktivitas, dan komunikasi tim Anda dalam satu tempat.</p>
+      </div>
+
+      <!-- Halaman -->
+      <div class="col-md-2">
+        <h6 class="text-uppercase fw-bold">Halaman</h6>
+        <ul class="list-unstyled small">
+          <li><a href="#hero" class="text-white text-decoration-none">Beranda</a></li>
+          <li><a href="#about" class="text-white text-decoration-none">Tentang</a></li>
+          <li><a href="#more" class="text-white text-decoration-none">Fitur</a></li>
+          <li><a href="#pricing" class="text-white text-decoration-none">Harga</a></li>
+          <li><a href="#faq" class="text-white text-decoration-none">FAQ</a></li>
+          <li><a href="#contact" class="text-white text-decoration-none">Kontak</a></li>
+        </ul>
+      </div>
+
+      <!-- Informasi -->
+      <div class="col-md-2">
+        <h6 class="text-uppercase fw-bold">Informasi</h6>
+        <ul class="list-unstyled small">
+          <li><a href="#" class="text-white text-decoration-none">Tim Kami</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Tentang Kami</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Layanan</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Blog</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Ketentuan</a></li>
+        </ul>
+      </div>
+
+      <!-- Kontak & Maps -->
+      <div class="col-md-4">
+        <h6 class="text-uppercase fw-bold">Kontak Kami</h6>
+        <p><i class="bi bi-geo-alt-fill"></i> Jl. Jemb. Merah No.84C, Condongcatur, Sleman</p>
+        <p><i class="bi bi-envelope-fill"></i> support@fantasticfour.com</p>
+        <p><i class="bi bi-telephone-fill"></i> +62 812-3456-7890</p>
+
+        <div class="rounded overflow-hidden border border-primary shadow-sm mt-3">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3954.547578037197!2d110.4083677147757!3d-7.614006776452661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a58476f3ef7eb%3A0x18132f0fd8ec258f!2sGg.%20Jemb.%20Merah%20No.84C%2C%20Soropadan%2C%20Condongcatur%2C%20Kec.%20Depok%2C%20Kabupaten%20Sleman%2C%20Daerah%20Istimewa%20Yogyakarta%2055283!5e0!3m2!1sid!2sid!4v1720575299246!5m2!1sid!2sid"
+            width="100%" height="150" style="border:0;" allowfullscreen loading="lazy">
+          </iframe>
+        </div>
+        <div class="mt-3">
+          <span>Ikuti kami:</span>
+          <a href="#" class="text-white ms-2 me-2"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="text-white me-2"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="text-white me-2"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="text-white"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <hr class="mt-4" style="border-color: rgba(255, 255, 255, 0.2);">
+    <p class="text-center mb-0 small">&copy; 2025 <strong>Fantastic Four</strong>. Semua hak dilindungi.</p>
+  </div>
+</footer>
+
+<!-- Tambahkan Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

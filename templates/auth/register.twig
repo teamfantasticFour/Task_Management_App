@@ -1,0 +1,122 @@
+{% extends "layout_auth.twig" %}
+
+{% block content %}
+<style>
+    .register-card {
+        max-width: 420px;
+        margin: 60px auto;
+        padding: 30px 40px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .register-card h2 {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .register-card p {
+        color: #6c757d;
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    .form-control {
+        border-radius: 10px;
+    }
+
+    .btn-purple {
+        background-color: #7e57c2;
+        border: none;
+        color: white;
+        font-weight: bold;
+    }
+
+    .btn-purple:hover {
+        background-color: #673ab7;
+    }
+
+    .form-check-label {
+        font-size: 13px;
+    }
+
+    .social-buttons .btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        font-size: 18px;
+        line-height: 34px;
+    }
+
+    .login-link {
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #ddd;
+    }
+
+    .divider:not(:empty)::before {
+        margin-right: .75em;
+    }
+
+    .divider:not(:empty)::after {
+        margin-left: .75em;
+    }
+</style>
+
+
+<div class="register-card text-center">
+    <h2>Daftar</h2>
+    <p>Selamat datang! Buat akun gratis kamu sekarang</p>
+
+    {% if flash %}
+    <div class="alert alert-info">{{ flash }}</div>
+    {% endif %}
+
+    <form method="post" action="/register">
+        <div class="mb-3 text-start">
+            <label for="first_name" class="form-label">Nama Lengkap</label>
+            <input type="text" name="first_name" class="form-control" placeholder="Nama lengkap" required>
+        </div>
+        <div class="mb-3 text-start">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" placeholder="Username unik" required>
+        </div>
+        <div class="mb-3 text-start">
+            <label for="password" class="form-label">Kata Sandi</label>
+            <input type="password" name="password" class="form-control" placeholder="Kata sandi" required>
+        </div>
+        <div class="mb-3 text-start">
+            <label for="confirm_password" class="form-label">Konfirmasi Kata Sandi</label>
+            <input type="password" name="confirm_password" class="form-control" placeholder="Ulangi kata sandi" required>
+        </div>
+        <div class="mb-3 form-check text-start">
+            <input class="form-check-input" type="checkbox" id="terms" required>
+            <label class="form-check-label" for="terms">
+                Saya setuju dengan <a href="#">Syarat & Ketentuan</a> dan <a href="#">Kebijakan Privasi</a>
+            </label>
+        </div>
+        <button type="submit" class="btn btn-purple w-100 mb-3">Buat Akun</button>
+    </form>
+
+    <div class="login-link">
+        Sudah punya akun? <a href="/login">Masuk di sini</a>
+    </div>
+
+    <!-- Social Buttons... -->
+</div>
+{% endblock %}

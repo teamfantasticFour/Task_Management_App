@@ -1,0 +1,49 @@
+{% extends "layout.twig" %} {% block content %}
+<div class="container py-4">
+  <h4 class="mb-3">Daftar Semua Task</h4>
+  <a href="/tasks/create" class="btn btn-primary mb-3">+ Tambah Task</a>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-light">
+      <tr>
+        <th>No</th>
+        <th>Judul</th>
+        <th>Kategori</th>
+        <th>Tag</th>
+        <th>Status</th>
+        <th>Deadline</th>
+        <th>Assignees</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in tasks %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ task.title }}</td>
+        <td>{{ task.category }}</td>
+        <td>{{ task.tag }}</td>
+        <td>{{ task.status }}</td>
+        <td>
+          {% if task.deadline %}
+          {{ task.deadline|date("d-m-Y") }}
+          {% else %}
+          <em>Tidak ditentukan</em>
+          {% endif %}
+        </td>
+        <td>{{ task.assignees ?: '<em>Belum ada</em>'|raw }}</td>
+        <td>
+          <a href="/tasks/detail/{{ task.id }}" class="btn btn-sm btn-info">Detail</a>
+          <a href="/tasks/edit/{{ task.id }}" class="btn btn-sm btn-warning">Edit</a>
+          <a href="/tasks/delete/{{ task.id }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus task ini?')">Hapus</a>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="10" class="text-center">Belum ada data task</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

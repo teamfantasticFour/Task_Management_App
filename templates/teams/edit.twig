@@ -1,0 +1,36 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h4 class="mb-4">Edit Team</h4>
+
+    <form method="POST" action="/teams/edit/{{ team.id }}" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label class="form-label">Team Name</label>
+            <input type="text" name="name" class="form-control" value="{{ team.name }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea name="description" class="form-control" rows="4">{{ team.description }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Current Photo</label><br>
+            {% if team.photo %}
+                <img src="/uploads/{{ team.photo }}" alt="Team Photo" class="img-thumbnail" width="200">
+            {% else %}
+                <p>No photo uploaded.</p>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Change Photo</label>
+            <input type="file" name="image" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="/teams" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

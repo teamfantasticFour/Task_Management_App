@@ -1,0 +1,104 @@
+{% extends "layout.twig" %} {% block content %}
+<section class="kanban-board">
+  <div class="bg-light-subtle py-3 px-4 border-bottom">
+    <div class="container-fluid">
+      <h4 class="fw-semibold mb-0">Kanban Board</h4>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center mb-3 px-4 mt-4 flex-wrap gap-2">
+    <h5 class="mb-0">List of Boards</h5>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">+ Add New Task</button>
+  </div>
+
+  <!-- Modal Add Task -->
+  <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <form method="POST" action="/kanban/store" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Tambah Task Baru</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Form fields -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Judul Task</label>
+              <input type="text" name="title" class="form-control" required />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Kategori</label>
+              <input type="text" name="category" class="form-control" />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Tanggal Dibuat</label>
+              <input type="date" name="created_at" class="form-control" required />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Deadline</label>
+              <input type="date" name="deadline" class="form-control" required />
+            </div>
+            <div class="col-md-12 mb-3">
+              <label class="form-label">Deskripsi</label>
+              <textarea name="description" rows="4" class="form-control" required></textarea>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Tag</label>
+              <input type="text" name="tag" class="form-control" required />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Status</label>
+              <select name="status" class="form-select">
+                <option>NEW</option>
+                <option>TODO</option>
+                <option>ON GOING</option>
+                <option>IN REVIEW</option>
+                <option>COMPLETED</option>
+              </select>
+            </div>
+            <div class="col-12 mb-3">
+              <label class="form-label">Assignees (pisahkan dengan koma)</label>
+              <input type="text" name="assignees" class="form-control" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Kanban Columns -->
+  <div class="kanban-scroll-wrapper mt-4 px-4">
+    <div class="kanban-columns">
+      {% for status, items in grouped_tasks %}
+      <div class="kanban-column" data-status="{{ status }}">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h6 class="mb-0">{{ status }}</h6>
+        </div>
+
+        <div class="kanban-list d-flex flex-column gap-3">
+          {% for task in items %}
+          <div class="card border-0 p-3 shadow-sm task-card" data-id="{{ task.id }}">
+            <div class="small text-muted mb-2">
+              Created - {{ task.created_at|date("d M Y") }} • <span class="float-end">{{ task.deadline }}</span>
+            </div>
+            <div class="mb-2">
+              <span class="badge bg-secondary">#SPK-{{ task.id }}</span>
+              <span class="badge bg-info text-dark">{{ task.category }}</span>
+            </div>
+            <strong class="d-block mb-1">{{ task.title }}</strong>
+            <p class="small text-muted mb-2">{{ task.description|slice(0, 80) ~ '...' }}</p>
+            <div class="d-flex justify-content-between align-items-center"></div>
+          </div>
+          {% endfor %}
+        </div>
+        <a href="#" class="btn btn-light btn-sm w-100 mt-2 text-primary border border-primary">View More</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

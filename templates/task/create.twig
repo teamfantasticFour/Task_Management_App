@@ -1,0 +1,56 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<div class="container py-5">
+    <h3 class="mb-4">Tambah Task Baru</h3>
+    <form method="POST" action="/kanban/store">
+        <div class="mb-3">
+            <label class="form-label">Judul Task</label>
+            <input type="text" name="title" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Deskripsi</label>
+            <textarea name="description" rows="4" class="form-control" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tanggal Dibuat</label>
+            <input type="date" name="created_at" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Deadline</label>
+            <input type="date" name="deadline" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tag</label>
+            <input type="text" name="tag" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Kategori</label>
+            <input type="text" name="category" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select name="status" class="form-select">
+                <option>NEW</option>
+                <option>TODO</option>
+                <option>ON GOING</option>
+                <option>IN REVIEW</option>
+                <option>COMPLETED</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Assignees (pisahkan dengan koma)</label>
+            <input type="text" name="assignees" class="form-control" placeholder="user1.jpg,user2.jpg">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Likes</label>
+            <input type="number" name="likes" class="form-control" value="0">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Komentar</label>
+            <input type="number" name="comments" class="form-control" value="0">
+        </div>
+        <button type="submit" class="btn btn-primary">Simpan Task</button>
+    </form>
+</div>
+{% endblock %}

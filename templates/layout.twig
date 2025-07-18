@@ -1,0 +1,52 @@
+<!-- templates/layout.twig -->
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard - Fantastic Four</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="/css/style_layout.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+
+  <body>
+    <div class="d-flex">
+      {% include 'partials/sidebar.twig' %}
+      <div class="flex-grow-1">
+        {% include 'partials/navbar.twig' %}
+        <main class="p-4">{% block content %}{% endblock %}</main>
+        {% include 'partials/footer.twig' %}
+      </div>
+    </div>
+    <style>
+      .kanban-column {
+        min-height: 200px;
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 6px;
+      }
+      .ghost {
+        opacity: 0.4;
+      }
+    </style>
+
+    {% if session.flash %}
+    <script>
+      Swal.fire({
+        icon: "{{ session.flash.type }}",
+        title: "{{ session.flash.message }}",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    </script>
+    {% endif %}
+
+    <script src="/js/kanban.js"></script>
+    <!-- Tambahkan ini -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,104 @@
+{% extends "layout_auth.twig" %}
+
+{% block content %}
+<style>
+    .login-card {
+        max-width: 420px;
+        margin: 60px auto;
+        padding: 30px 40px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-card h2 {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .login-card p {
+        color: #6c757d;
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    .form-control {
+        border-radius: 10px;
+    }
+
+    .btn-purple {
+        background-color: #7e57c2;
+        border: none;
+        color: white;
+        font-weight: bold;
+    }
+
+    .btn-purple:hover {
+        background-color: #673ab7;
+    }
+
+    .register-link {
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #ddd;
+    }
+
+    .divider:not(:empty)::before {
+        margin-right: .75em;
+    }
+
+    .divider:not(:empty)::after {
+        margin-left: .75em;
+    }
+
+    .social-buttons .btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        font-size: 18px;
+        line-height: 34px;
+    }
+</style>
+
+
+<div class="login-card text-center">
+    <h2>Masuk</h2>
+    <p>Silakan masuk ke akun Anda</p>
+
+    {% if flash %}
+    <div class="alert alert-info">{{ flash }}</div>
+    {% endif %}
+
+    <form method="post" action="/login">
+        <div class="mb-3 text-start">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" placeholder="Masukkan username" required>
+        </div>
+        <div class="mb-3 text-start">
+            <label for="password" class="form-label">Kata Sandi</label>
+            <input type="password" name="password" class="form-control" placeholder="Masukkan kata sandi" required>
+        </div>
+        <button type="submit" class="btn btn-purple w-100 mb-3">Masuk</button>
+    </form>
+
+    <div class="register-link">
+        Belum punya akun? <a href="/register">Daftar di sini</a>
+    </div>
+
+    <!-- Social Buttons... -->
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<div class="container py-4">
+    <h4 class="mb-3">Detail Task</h4>
+
+    <div class="mb-3"><strong>Judul:</strong> <p>{{ task.title }}</p></div>
+    <div class="mb-3"><strong>Deskripsi:</strong> <p>{{ task.description }}</p></div>
+    <div class="mb-3"><strong>Status:</strong> <p>{{ task.status }}</p></div>
+    <div class="mb-3"><strong>Tanggal Dibuat:</strong> <p>{{ task.created_at }}</p></div>
+    <div class="mb-3"><strong>Deadline:</strong> <p>{{ task.deadline }}</p></div>
+    <div class="mb-3"><strong>Tag:</strong> <p>{{ task.tag }}</p></div>
+    <div class="mb-3"><strong>Kategori:</strong> <p>{{ task.category }}</p></div>
+    <div class="mb-3"><strong>Assignees:</strong> <p>{{ task.assignees }}</p></div>
+
+    <hr>
+
+    <!-- Tombol Navigasi -->
+    <div class="text-end mt-4">
+        <a href="/tasks" class="btn btn-secondary">Kembali ke List</a>
+    </div>
+</div>
+{% endblock %}
