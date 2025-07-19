@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Views\Twig;
 use Medoo\Medoo;
 
@@ -17,74 +17,123 @@ class TaskController
         $this->db = $db;
     }
 
-    // List semua task
-    public function index(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    public function index(Request $request, Response $response): Response
+{
+    $tasks = $this->db->select("tbl_tasks", "*");
+    $flash = $_SESSION['flash'] ?? null;
+    unset($_SESSION['flash']);
+
+    return $this->view->render($response, 'task/list.twig', [
+        'tasks' => $tasks,
+        'flash' => $flash
+    ]);
+}
+
+    public function createForm(Request $request, Response $response, array $args): Response
     {
-        $tasks = $this->db->select("tbl_tasks", "*");
-        return $this->view->render($response, 'task/list.twig', ['tasks' => $tasks]);
+        $statuses = $this->db->select("tbl_statuses", "*");
+        $teams = $this->db->select("tbl_teams", ["name"]); // ambil hanya kolom nama tim
+
+        return $this->view->render($response, 'task/create.twig', [
+            'tbl_statuses' => $statuses,
+            'teams' => $teams
+        ]);
     }
 
-    // Tampilkan form create
-    public function createForm(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
-    {
-        return $this->view->render($response, 'task/create.twig');
-    }
-
-    // Simpan task baru
-    public function store(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    public function store(Request $request, Response $response, array $args): Response
     {
         $data = $request->getParsedBody();
 
         $this->db->insert("tbl_tasks", [
             "title" => $data["title"] ?? '',
             "description" => $data["description"] ?? '',
-            "created_at" => date('Y-m-d'),
+            "created_at" => $data["created_at"] ?? date('Y-m-d'),
             "deadline" => $data["deadline"] ?? null,
             "tag" => $data["tag"] ?? '',
             "category" => $data["category"] ?? '',
-            "status" => $data["status"] ?? 'NEW',
-            "assignees" => $data["assignees"] ?? ''
+            "status_id" => $data["status"] ?? ''
         ]);
 
+        $_SESSION['flash'] = ['type' => 'success', 'message' => 'Task berhasil ditambahkan'];
         return $response->withHeader('Location', '/tasks')->withStatus(302);
     }
 
-    // Tampilkan form edit
-    public function editForm(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
-    {
-        $task = $this->db->get("tbl_tasks", "*", ["id" => $args['id']]);
-        return $this->view->render($response, 'task/edit.twig', ['task' => $task]);
+ public function detail(Request $request, Response $response, array $args): Response
+{
+    $id = $args['id'];
+    $task = $this->db->get("tbl_tasks", "*", ["id" => $id]);
+
+    if (!$task) {
+        $response->getBody()->write("Task tidak ditemukan");
+        return $response->withStatus(404);
     }
 
-    // Proses update
-    public function update(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
+   return $this->view->render($response, 'task/detail.twig', [
+    'task' => $task
+]);
+}
+
+
+    public function editForm(Request $request, Response $response, array $args): Response
+{
+    $task = $this->db->get("tbl_tasks", "*", ["id" => $args['id']]);
+    if (!$task) {
+        $_SESSION['flash'] = ['type' => 'danger', 'message' => 'Task tidak ditemukan.'];
+        return $response->withHeader('Location', '/tasks')->withStatus(302);
+    }
+
+    $statuses = $this->db->select("tbl_statuses", "*");
+    $teams = $this->db->select("tbl_teams", ["name"]);
+
+    $flash = $_SESSION['flash'] ?? null;
+    unset($_SESSION['flash']);
+
+    return $this->view->render($response, 'task/edit.twig', [
+        'task' => $task,
+        'tbl_statuses' => $statuses,
+        'teams' => $teams,
+        'flash' => $flash
+    ]);
+}
+
+    public function update(Request $request, Response $response, array $args): Response
     {
         $data = $request->getParsedBody();
 
         $this->db->update("tbl_tasks", [
             "title" => $data["title"] ?? '',
             "description" => $data["description"] ?? '',
+            "created_at" => $data["created_at"] ?? date('Y-m-d'),
             "deadline" => $data["deadline"] ?? null,
             "tag" => $data["tag"] ?? '',
             "category" => $data["category"] ?? '',
-            "status" => $data["status"] ?? 'TODO',
-            "assignees" => $data["assignees"] ?? ''
+            "status_id" => $data["status"] ?? ''
         ], ["id" => $args['id']]);
 
+        $_SESSION['flash'] = ['type' => 'success', 'message' => 'Task berhasil diperbarui'];
         return $response->withHeader('Location', '/tasks')->withStatus(302);
     }
 
-    // Hapus task
-    public function delete(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
-    {
-        $this->db->delete("tbl_tasks", ["id" => $args['id']]);
+    public function delete(Request $request, Response $response, array $args): Response
+{
+    $taskId = $args['id'] ?? null;
+
+    if (!$taskId) {
+        $_SESSION['flash'] = ['type' => 'danger', 'message' => 'ID tidak valid.'];
         return $response->withHeader('Location', '/tasks')->withStatus(302);
     }
 
-    // Detail task
-    public function detail(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
-    {
-        $task = $this->db->get("tbl_tasks", "*", ["id" => $args['id']]);
-        return $this->view->render($response, 'task/detail.twig', ['task' => $task]);
+    // Periksa apakah task ada
+    $task = $this->db->get("tbl_tasks", "*", ["id" => $taskId]);
+    if (!$task) {
+        $_SESSION['flash'] = ['type' => 'danger', 'message' => 'Task tidak ditemukan.'];
+        return $response->withHeader('Location', '/tasks')->withStatus(302);
     }
+
+    // Hapus
+    $this->db->delete("tbl_tasks", ["id" => $taskId]);
+
+    $_SESSION['flash'] = ['type' => 'success', 'message' => 'Task berhasil dihapus'];
+    return $response->withHeader('Location', '/tasks')->withStatus(302);
+}
 }

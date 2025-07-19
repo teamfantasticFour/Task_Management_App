@@ -18,25 +18,48 @@ class DashboardController
         $this->db = $db;
     }
 
-    // Halaman utama dashboard
     public function index(Request $request, Response $response): Response
     {
+        // Autentikasi
         $user = $_SESSION['user'] ?? null;
         if (!$user) {
             return $response->withHeader('Location', '/login')->withStatus(302);
         }
 
-        // Ambil semua task dan kelompokkan berdasarkan status
+        // Ambil semua status (board) dari tbl_statuses
+        $statuses = $this->db->select("tbl_statuses", "*");
+
+        // Ambil semua task dari tbl_tasks
         $tasks = $this->db->select("tbl_tasks", "*");
 
+        // Kelompokkan task berdasarkan status_id
         $grouped = [];
-        foreach ($tasks as $task) {
-            $grouped[$task['status']][] = $task;
+        foreach ($statuses as $status) {
+            $grouped[$status['id']] = [
+                'status' => $status,
+                'tasks' => []
+            ];
         }
+
+        foreach ($tasks as $task) {
+            $statusId = $task['status_id'] ?? null;
+            if ($statusId && isset($grouped[$statusId])) {
+                $grouped[$statusId]['tasks'][] = $task;
+            } else {
+                // Jika tidak ada status_id yang cocok, masukkan ke "tanpa status"
+                $grouped[0]['tasks'][] = $task;
+            }
+        }
+
+        // Ambil pesan SweetAlert jika ada
+        $flash = $_SESSION['sweetalert'] ?? null;
+        unset($_SESSION['sweetalert']);
 
         return $this->view->render($response, 'dashboard.twig', [
             'user' => $user,
-            'grouped_tasks' => $grouped
+            'statuses' => $statuses,
+            'grouped_tasks' => $grouped,
+            'flash' => $flash,
         ]);
     }
 }

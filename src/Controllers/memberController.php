@@ -36,7 +36,7 @@ class MemberController
 
         return $this->view->render($response, 'members/members.twig', [
             'members' => $members,
-            'session' => ['flash' => $flash]
+            'flash' => $flash
         ]);
     }
 
@@ -50,7 +50,7 @@ class MemberController
 
         return $this->view->render($response, 'members/create.twig', [
             'teams' => $teams,
-            'session' => ['flash' => $flash]
+            'flash' => $flash
         ]);
     }
 
@@ -101,7 +101,7 @@ class MemberController
         return $this->view->render($response, 'members/edit.twig', [
             'member' => $member,
             'teams' => $teams,
-            'session' => ['flash' => $flash]
+            'flash' => $flash
         ]);
     }
 

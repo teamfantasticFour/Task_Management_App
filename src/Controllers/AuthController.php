@@ -18,6 +18,7 @@ class AuthController
         $this->db = $db;
     }
 
+    // Tampilkan form login
     public function showLoginForm(Request $request, Response $response): Response
     {
         $flash = $_SESSION['flash'] ?? null;
@@ -28,6 +29,7 @@ class AuthController
         ]);
     }
 
+    // Tampilkan form register
     public function showRegisterForm(Request $request, Response $response): Response
     {
         $flash = $_SESSION['flash'] ?? null;
@@ -38,62 +40,92 @@ class AuthController
         ]);
     }
 
+    // Proses registrasi user baru
     public function register(Request $request, Response $response): Response
     {
         $data = $request->getParsedBody();
 
-        $firstName = trim($data['first_name'] ?? '');
-        $username = trim($data['username'] ?? '');
-        $password = $data['password'] ?? '';
-        $confirm = $data['confirm_password'] ?? '';
+        $firstName = htmlspecialchars(trim($data['first_name'] ?? ''));
+        $username  = htmlspecialchars(trim($data['username'] ?? ''));
+        $password  = $data['password'] ?? '';
+        $confirm   = $data['confirm_password'] ?? '';
 
         if (empty($firstName) || empty($username) || empty($password) || $password !== $confirm) {
-            $_SESSION['flash'] = 'Data tidak valid atau password tidak cocok.';
+            $_SESSION['flash'] = [
+                'type' => 'error',
+                'message' => 'Data tidak valid atau password tidak cocok.'
+            ];
             return $response->withHeader('Location', '/register')->withStatus(302);
         }
 
         $existing = $this->db->get('tbl_users', '*', ['username' => $username]);
         if ($existing) {
-            $_SESSION['flash'] = 'Username sudah digunakan.';
+            $_SESSION['flash'] = [
+                'type' => 'warning',
+                'message' => 'Username sudah digunakan.'
+            ];
             return $response->withHeader('Location', '/register')->withStatus(302);
         }
 
         $this->db->insert('tbl_users', [
             'first_name' => $firstName,
-            'username' => $username,
-            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'username'   => $username,
+            'password'   => password_hash($password, PASSWORD_DEFAULT),
         ]);
 
-        $_SESSION['flash'] = 'Registrasi berhasil. Silakan login.';
+        $_SESSION['flash'] = [
+            'type' => 'success',
+            'message' => 'Registrasi berhasil. Silakan login.'
+        ];
         return $response->withHeader('Location', '/login')->withStatus(302);
     }
 
+    // Proses login
     public function login(Request $request, Response $response): Response
     {
         $data = $request->getParsedBody();
 
-        $username = trim($data['username'] ?? '');
+        $username = htmlspecialchars(trim($data['username'] ?? ''));
         $password = $data['password'] ?? '';
 
         $user = $this->db->get('tbl_users', '*', ['username' => $username]);
 
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user'] = [
-                'id' => $user['id'],
+                'id'       => $user['id'],
                 'username' => $user['username'],
-                'name' => $user['first_name']
+                'name'     => $user['first_name']
             ];
-            $_SESSION['flash'] = 'Login berhasil!';
+            $_SESSION['flash'] = [
+                'type' => 'success',
+                'message' => 'Login berhasil!'
+            ];
             return $response->withHeader('Location', '/dashboard')->withStatus(302);
         }
 
-        $_SESSION['flash'] = 'Username atau password salah.';
+                $_SESSION['flash'] = [
+            'type' => 'warning',
+            'message' => 'Silakan login untuk mengakses halaman ini.'
+        ];
+
         return $response->withHeader('Location', '/login')->withStatus(302);
     }
 
+    // Logout
     public function logout(Request $request, Response $response): Response
-    {
-        session_destroy();
-        return $response->withHeader('Location', '/login')->withStatus(302);
-    }
+{
+    // Simpan pesan ke session
+    $_SESSION['flash'] = [
+        'type' => 'success',
+        'message' => 'Anda berhasil logout.'
+    ];
+
+    // Hapus semua session user
+    session_unset();
+    session_destroy();
+
+    // Redirect ke halaman home
+    return $response->withHeader('Location', '/')->withStatus(302);
+}
+
 }

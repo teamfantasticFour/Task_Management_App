@@ -6,6 +6,7 @@ use DI\ContainerBuilder;
 use Medoo\Medoo;
 use Slim\Views\Twig;
 use Psr\Container\ContainerInterface;
+
 use App\Controllers\DashboardController;
 use App\Controllers\AuthController;
 use App\Controllers\ContactController;
@@ -13,6 +14,9 @@ use App\Controllers\KanbanController;
 use App\Controllers\TaskController;
 use App\Controllers\TeamController;
 use App\Controllers\BoardController;
+use App\Controllers\StatusController;
+
+use App\Middleware\AuthMiddleware; 
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
@@ -29,23 +33,29 @@ return function (ContainerBuilder $containerBuilder) {
             return $twig;
         },
 
-          Medoo::class => function () {
-        return new Medoo([
-            'type' => 'mysql',
-            'host' => 'localhost',
-            'database' => 'task_management_app',
-            'username' => 'root',
-            'password' => '',
-            'charset' => 'utf8mb4',
-        ]);
-    },
-    'db' => function (ContainerInterface $c) {
+        // Medoo
+        Medoo::class => function () {
+            return new Medoo([
+                'type' => 'mysql',
+                'host' => 'localhost',
+                'database' => 'task_management_app',
+                'username' => 'root',
+                'password' => '',
+                'charset' => 'utf8mb4',
+            ]);
+        },
+
+        'db' => function (ContainerInterface $c) {
             return $c->get(Medoo::class);
         },
 
         // Controllers
         AuthController::class => function (ContainerInterface $c) {
             return new AuthController($c->get(Twig::class), $c->get('db'));
+        },
+
+        AuthMiddleware::class => function () {
+            return new AuthMiddleware();
         },
 
         DashboardController::class => function (ContainerInterface $c) {
@@ -68,11 +78,12 @@ return function (ContainerBuilder $containerBuilder) {
             return new TeamController($c->get(Twig::class), $c->get('db'));
         },
 
-       BoardController::class => function (ContainerInterface $c) {
-    return new BoardController(
-        $c->get(Twig::class),
-        $c->get('db')
-    );
+        BoardController::class => function (ContainerInterface $c) {
+            return new BoardController($c->get(Twig::class), $c->get('db'));
+        },
+
+        StatusController::class => function (ContainerInterface $c) {
+            return new StatusController($c->get(Twig::class), $c->get('db'));
         },
     ]);
 };

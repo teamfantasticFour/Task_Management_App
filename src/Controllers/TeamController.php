@@ -19,7 +19,13 @@ class TeamController
     public function index(Request $request, ResponseInterface $response): ResponseInterface
     {
         $teams = $this->db->select("tbl_teams", "*");
-        return $this->view->render($response, 'teams/list.twig', ['teams' => $teams]);
+        $flash = $_SESSION['flash'] ?? null;
+        unset($_SESSION['flash']);
+
+        return $this->view->render($response, 'teams/list.twig', [
+            'teams' => $teams,
+            'flash' => $flash
+        ]);
     }
 
     public function createForm(Request $request, ResponseInterface $response): ResponseInterface
@@ -52,6 +58,7 @@ class TeamController
             'created_at' => date('Y-m-d')
         ]);
 
+        $_SESSION['flash'] = ['type' => 'success', 'message' => 'Tim berhasil ditambahkan.'];
         return $response->withHeader('Location', '/teams')->withStatus(302);
     }
 
@@ -77,7 +84,6 @@ class TeamController
         }
 
         if (!empty($uploadedFiles['image']) && $uploadedFiles['image']->getError() === UPLOAD_ERR_OK) {
-            // Hapus foto lama jika ada
             $old = $this->db->get("tbl_teams", "photo", ["id" => $args['id']]);
             if ($old && file_exists($uploadDir . $old)) {
                 unlink($uploadDir . $old);
@@ -90,12 +96,13 @@ class TeamController
         }
 
         $this->db->update("tbl_teams", $updateData, ["id" => $args['id']]);
+
+        $_SESSION['flash'] = ['type' => 'success', 'message' => 'Tim berhasil diperbarui.'];
         return $response->withHeader('Location', '/teams')->withStatus(302);
     }
 
     public function delete(Request $request, ResponseInterface $response, array $args): ResponseInterface
     {
-        // Hapus foto tim jika ada
         $team = $this->db->get("tbl_teams", "*", ["id" => $args['id']]);
         if ($team && $team['photo']) {
             $photoPath = __DIR__ . '/../../public/uploads/team/' . $team['photo'];
@@ -105,14 +112,16 @@ class TeamController
         }
 
         $this->db->delete("tbl_teams", ["id" => $args['id']]);
+
+        $_SESSION['flash'] = ['type' => 'success', 'message' => 'Tim berhasil dihapus.'];
         return $response->withHeader('Location', '/teams')->withStatus(302);
     }
 
     public function members(Request $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $teamId = $args['id'];
-
         $team = $this->db->get("tbl_teams", "*", ["id" => $teamId]);
+
         if (!$team) {
             return $response->withHeader('Location', '/teams')->withStatus(302);
         }
@@ -130,9 +139,13 @@ class TeamController
             "tbl_members.team_id" => $teamId
         ]);
 
+        $flash = $_SESSION['flash'] ?? null;
+        unset($_SESSION['flash']);
+
         return $this->view->render($response, 'teams/memberTeam.twig', [
             'team' => $team,
-            'members' => $members
+            'members' => $members,
+            'flash' => $flash
         ]);
     }
 
@@ -143,6 +156,7 @@ class TeamController
         $photo = null;
 
         if (empty($data["name"])) {
+            $_SESSION['flash'] = ['type' => 'error', 'message' => 'Nama anggota wajib diisi.'];
             return $response->withHeader('Location', "/teams/{$args['id']}/members")->withStatus(302);
         }
 
@@ -165,6 +179,7 @@ class TeamController
             "photo" => $photo
         ]);
 
+        $_SESSION['flash'] = ['type' => 'success', 'message' => 'Anggota tim berhasil ditambahkan.'];
         return $response->withHeader('Location', "/teams/{$args['id']}/members")->withStatus(302);
     }
 
@@ -179,6 +194,8 @@ class TeamController
         }
 
         $this->db->delete("tbl_members", ["id" => $args['member_id']]);
+
+        $_SESSION['flash'] = ['type' => 'success', 'message' => 'Anggota tim berhasil dihapus.'];
         return $response->withHeader('Location', "/teams/{$args['id']}/members")->withStatus(302);
     }
 }

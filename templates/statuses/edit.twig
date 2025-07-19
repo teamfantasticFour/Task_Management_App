@@ -1,0 +1,16 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<div class="container py-4">
+  <h4 class="mb-3">Edit Status</h4>
+
+  <form method="POST" action="/statuses/update/{{ status.id }}">
+    <div class="mb-3">
+      <label class="form-label">Nama Status</label>
+      <input type="text" name="name" value="{{ status.name }}" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a href="/statuses" class="btn btn-secondary">Kembali</a>
+  </form>
+</div>
+{% endblock %}

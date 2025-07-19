@@ -17,15 +17,15 @@ class HomeController
 
     public function index(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
-        // ✅ Pastikan session aktif
+        
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
-        // ✅ Render terlebih dahulu
+        //  Render terlebih dahulu
         $response = $this->view->render($response, 'home.twig');
 
-        // ✅ Baru setelah itu hapus flash message
+        //  Baru setelah itu hapus flash message
         unset($_SESSION['success_message']);
 
         return $response;

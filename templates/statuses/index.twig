@@ -1,0 +1,59 @@
+{% extends "layout.twig" %} {% block content %}
+<div class="container py-4">
+  <h4 class="mb-3">Manajemen Status (Board)</h4>
+
+  <form method="POST" action="/statuses/create" class="modal-content">
+    <div class="input-group">
+      <input type="text" name="status" class="form-control" placeholder="Nama Status Baru" required />
+      <button class="btn btn-success" type="submit">Tambah</button>
+    </div>
+  </form>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Nama Status</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in statuses %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ s.name }}</td>
+        <td>
+          <a href="/statuses/edit/{{ s.id }}" class="btn btn-sm btn-warning">Edit</a>
+          <button onclick="confirmDelete('{{ s.id }}')" class="btn btn-sm btn-danger">Hapus</button>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="3" class="text-center">Belum ada data status</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  function confirmDelete(id) {
+    Swal.fire({
+      title: "Hapus task?",
+      text: "Data ini akan dihapus secara permanen!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#e3342f",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Ya, hapus",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "/statuses/delete/" + id;
+      }
+    });
+  }
+</script>
+{% endblock %}

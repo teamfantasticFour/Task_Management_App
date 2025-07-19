@@ -35,7 +35,7 @@
         <td>
           <a href="/tasks/detail/{{ task.id }}" class="btn btn-sm btn-info">Detail</a>
           <a href="/tasks/edit/{{ task.id }}" class="btn btn-sm btn-warning">Edit</a>
-          <a href="/tasks/delete/{{ task.id }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus task ini?')">Hapus</a>
+          <button onclick="confirmDelete('{{ task.id }}')" class="btn btn-sm btn-danger">Hapus</button>
         </td>
       </tr>
       {% else %}
@@ -46,4 +46,24 @@
     </tbody>
   </table>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  function confirmDelete(id) {
+    Swal.fire({
+      title: "Hapus task?",
+      text: "Data ini akan dihapus secara permanen!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#e3342f",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Ya, hapus",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "/tasks/delete/" + id;
+      }
+    });
+  }
+</script>
+
 {% endblock %}
